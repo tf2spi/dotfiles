@@ -57,6 +57,9 @@ Host github.com
 ## .gitignore
 
 ```
+# Breakpoints produced by .gdbinit
+.breakpoints
+
 # Scripts I use in git repos to automate certain niceties
 *.i.sh
 *.i.bat
