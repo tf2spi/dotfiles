@@ -1,0 +1,16 @@
+# Scripts I use in git repos to automate certain niceties
+*.i.sh
+*.i.bat
+*.i.mak
+
+# Ruby version commit should be explicit with '-f'
+.ruby-version
+
+# Common executable formats I forget sometimes
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
+*.elf
+*.out

@@ -1,5 +1,4 @@
 # dotfiles
-
 **Are You Tired of Debugging Your Configurations?**
 
 **Have to Deal With Yet Another Trash Embedded System That Can't Handle Your Config?**
@@ -53,4 +52,25 @@ Host github.com
 	Hostname github.com
 	PreferredAuthentications publickey
 	IdentityFile ~/.ssh/id_file
+```
+
+## .gitignore
+
+```
+# Scripts I use in git repos to automate certain niceties
+*.i.sh
+*.i.bat
+*.i.mak
+
+# Ruby version commit should be explicit with '-f'
+.ruby-version
+
+# Common executable formats I forget sometimes
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
+*.elf
+*.out
 ```
