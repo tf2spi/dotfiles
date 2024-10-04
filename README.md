@@ -32,6 +32,10 @@ set -g mode-keys vi
 
 ## .gdbinit
 ```
+# I don't mind auto-load, surprisingly enough.
+# If I start debugging, I've probably executed build scripts
+# and/or intend to run the program itself locally anyways.
+set auto-load safe-path /
 define hook-quit
 save breakpoints .breakpoints
 end
@@ -40,9 +44,22 @@ end
 ## .bashrc or similar
 
 ```
+function gdb-posix () {
+	# Producing coredumps on segfaults is usually what I want by default
+	if [ ! -f .breakpoints ] ; then echo '
+catch signal SIGSEGV
+commands
+gcore core.latest
+end
+' >.breakpoints ; fi
+	gdb "$@"
+}
 export PATH="$HOME/.local/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
-alias gdb="gdb -ex 'source .breakpoints'"
+
+# This is equivalent to 'auto-load' but with '.breakpoints'
+# Remove this as well if you don't like 'auto-load'
+alias gdb="gdb-posix -ex 'source .breakpoints'"
 ```
 
 ## .ssh config
