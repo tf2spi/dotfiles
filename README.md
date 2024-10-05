@@ -61,6 +61,11 @@ export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 # This is equivalent to 'auto-load' but with '.breakpoints'
 # Remove this as well if you don't like 'auto-load'
 alias gdb="gdb-posix -ex 'source .breakpoints'"
+
+# Debian comes with Wayland so this is what I use
+# If you use X, then xclip is what you're looking for
+alias tmux-copy="tmux show-buffer | wl-copy"
+alias tmux-paste="wl-paste"
 ```
 
 ## .ssh config
