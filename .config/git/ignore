@@ -1,5 +1,6 @@
-# Breakpoints produced by .gdbinit
+# Files produced by .gdbinit and frields
 .breakpoints
+.gdb_history
 
 # Scripts I use in git repos to automate certain niceties
 *.i.sh

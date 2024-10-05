@@ -36,6 +36,7 @@ set -g mode-keys vi
 # If I start debugging, I've probably executed build scripts
 # and/or intend to run the program itself locally anyways.
 set auto-load safe-path /
+set history save on
 define hook-quit
 save breakpoints .breakpoints
 end
@@ -74,8 +75,9 @@ Host github.com
 ## .gitignore
 
 ```
-# Breakpoints produced by .gdbinit
+# Files produced by .gdbinit and frields
 .breakpoints
+.gdb_history
 
 # Scripts I use in git repos to automate certain niceties
 *.i.sh
