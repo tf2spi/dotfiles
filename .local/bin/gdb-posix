@@ -1,0 +1,9 @@
+#!/bin/sh
+# Producing coredumps on segfaults is usually what I want by default
+if [ ! -f .breakpoints ] ; then echo '
+catch signal SIGSEGV
+commands
+gcore core.latest
+end
+' >.breakpoints ; fi
+gdb -ex 'source .breakpoints' "$@"

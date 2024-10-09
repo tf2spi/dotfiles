@@ -10,7 +10,6 @@ Worry not because my dotfiles have come to the rescue
 dotfiles so simple, they fit on a page
 
 ## .vimrc / .exrc
-
 ```
 set autoindent
 set ignorecase
@@ -21,7 +20,6 @@ set wrapscan
 ```
 
 ## .tmux.conf
-
 ```
 # I may or may not have protanopia so this makes the contrast higher while still looking green to me
 set -g window-style bg=#000000,fg=#60e000
@@ -43,18 +41,7 @@ end
 ```
 
 ## .bashrc or similar
-
 ```
-function gdb-posix () {
-	# Producing coredumps on segfaults is usually what I want by default
-	if [ ! -f .breakpoints ] ; then echo '
-catch signal SIGSEGV
-commands
-gcore core.latest
-end
-' >.breakpoints ; fi
-	gdb "$@"
-}
 export PATH="$HOME/.local/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 
@@ -66,6 +53,19 @@ alias gdb="gdb-posix -ex 'source .breakpoints'"
 # If you use X, then xclip is what you're looking for
 alias tmux-copy="tmux show-buffer | wl-copy"
 alias tmux-paste="wl-paste"
+```
+
+## .local/bin/gdb-posix
+```
+#!/bin/sh
+# Producing coredumps on segfaults is usually what I want by default
+if [ ! -f .breakpoints ] ; then echo '
+catch signal SIGSEGV
+commands
+gcore core.latest
+end
+' >.breakpoints ; fi
+gdb -ex 'source .breakpoints' "$@"
 ```
 
 ## .ssh config
