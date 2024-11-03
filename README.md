@@ -139,6 +139,16 @@ fi
 exec git diff-index --check --cached $against --
 ```
 
+## .gitconfig
+```
+[core]
+	excludesfile = /home/foo/.config/git/ignore
+	hooksPath = /home/foo/.config/git/hooks
+[user]
+	name = Misomosi
+	email = misomosispi@gmail.com
+```
+
 ## asvarsall.sh (Android Studio)
 ```sh
 #!/bin/sh
