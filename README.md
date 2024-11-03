@@ -22,6 +22,25 @@ set wrapscan
 ## .vimrc
 ```
 source ~/.exrc
+set autoread
+function! GitVimFormat(filename)
+	call system('git vim-format ' . shellescape(a:filename))
+	e
+endfunction
+au BufWritePost *.c call GitVimFormat(bufname())
+```
+
+## git-vim-format
+```
+#!/bin/sh
+
+# Shell script for auto-formatting on BufWritePost in vim
+# I don't want to run this on all files, just those in git
+# repos which have a strict code style.
+BUFNAME="$1"
+if git config --get clangformat.style >/dev/null ; then
+	exec clang-format -i --style="$(git config --get clangformat.style)" "$BUFNAME"
+fi
 ```
 
 ## .tmux.conf
