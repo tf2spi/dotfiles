@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Some projects (like external ones) require entirely different checks and
+# formatters than the ones I create. Use per-directory commit hooks to control
+# this and skip the rest of the file.
+REPO_HOOK="$(git rev-parse --show-toplevel)/.git/hooks/pre-commit"
+if [ -f "$REPO_HOOK" ] ; then
+	exec "$REPO_HOOK" "$@"
+fi
+
 # Default pre-commit hook script by git
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
