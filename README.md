@@ -146,6 +146,15 @@ If you know what you are doing you can disable this check using:
 EOF
 	exit 1
 fi
+
+# If clangformat.style is explicitly defined globally or in repo,
+# I explicitly opt in to run git clang-format. I usually only do
+# this for external projects because they have different code styles
+# and are usually more strict about it than I am. Oh well.
+if git config --get clangformat.style ; then
+	git clang-format --staged $against
+	git add "$(git rev-parse --show-toplevel)"
+fi
 exec git diff-index --check --cached $against --
 ```
 
