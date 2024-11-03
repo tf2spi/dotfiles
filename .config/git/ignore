@@ -1,6 +1,7 @@
-# Files produced by .gdbinit and frields
+# Files produced by .gdbinit and friends
 .breakpoints
 .gdb_history
+core*
 
 # Scripts I use in git repos to automate certain niceties
 *.i.sh

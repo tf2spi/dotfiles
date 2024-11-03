@@ -9,7 +9,7 @@ Worry not because my dotfiles have come to the rescue
 
 dotfiles so simple, they fit on a page
 
-## .vimrc / .exrc
+## .exrc
 ```
 set autoindent
 set ignorecase
@@ -17,6 +17,11 @@ set number
 set showmatch
 set showmode
 set wrapscan
+```
+
+## .vimrc
+```
+source ~/.exrc
 ```
 
 ## .tmux.conf
@@ -55,7 +60,7 @@ alias tmux-copy="tmux show-buffer | wl-copy"
 alias tmux-paste="wl-paste"
 ```
 
-## .local/bin/gdb-posix
+## gdb-posix
 ```
 #!/bin/sh
 # Producing coredumps on segfaults is usually what I want by default
@@ -80,9 +85,10 @@ Host github.com
 ## .gitignore
 
 ```
-# Files produced by .gdbinit and frields
+# Files produced by .gdbinit and friends
 .breakpoints
 .gdb_history
+core*
 
 # Scripts I use in git repos to automate certain niceties
 *.i.sh
@@ -100,4 +106,53 @@ Host github.com
 *.bin
 *.elf
 *.out
+```
+
+## pre-commit
+```
+# Default pre-commit hook script by git
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	against=$(git hash-object -t tree /dev/null)
+fi
+allownonascii=$(git config --type=bool hooks.allownonascii)
+exec 1>&2
+if [ "$allownonascii" != "true" ] &&
+	test $(git diff --cached --name-only --diff-filter=A -z $against |
+	  LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
+then
+	cat <<\EOF
+Error: Attempt to add a non-ASCII file name.
+
+This can cause problems if you want to work with people on other platforms.
+
+To be portable it is advisable to rename the file.
+
+If you know what you are doing you can disable this check using:
+
+  git config hooks.allownonascii true
+EOF
+	exit 1
+fi
+exec git diff-index --check --cached $against --
+```
+
+## asvarsall.sh (Android Studio)
+```sh
+#!/bin/sh
+if [ "$ANDROID_SDK_HOME" = "" ] ; then
+	export ANDROID_SDK_HOME="$HOME"/Android/Sdk
+fi
+if [ "$ANDROID_NDK_HOME" = "" ] ; then
+	cd "$ANDROID_SDK_HOME"/ndk
+	export ANDROID_NDK_HOME="$PWD/$(ls -v | tr ' ' '\n' | head -1)"
+	cd $OLDPWD
+fi
+PLATFORM_BIN="$ANDROID_SDK_HOME/platform-tools"
+CMDLINE_BIN="$ANDROID_SDK_HOME/cmdline-tools/latest/bin"
+LLVM_BIN="$(echo "$ANDROID_NDK_HOME"/toolchains/llvm/prebuilt/linux-*/bin)"
+export PATH="$LLVM_BIN:$CMDLINE_BIN:$PLATFORM_BIN:$PATH"
+"$SHELL"
 ```
