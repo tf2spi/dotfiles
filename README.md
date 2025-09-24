@@ -77,6 +77,9 @@ alias gdb="gdb-posix -ex 'source .breakpoints'"
 # If you use X, then xclip is what you're looking for
 alias tmux-copy="tmux show-buffer | wl-copy"
 alias tmux-paste="wl-paste"
+
+# Android Studio SDK, NDK, CLI tools variables (similar to vcvarsall)
+source asvarsall.sh
 ```
 
 ## gdb-posix
@@ -202,5 +205,4 @@ PLATFORM_BIN="$ANDROID_SDK_HOME/platform-tools"
 CMDLINE_BIN="$ANDROID_SDK_HOME/cmdline-tools/latest/bin"
 LLVM_BIN="$(echo "$ANDROID_NDK_HOME"/toolchains/llvm/prebuilt/linux-*/bin)"
 export PATH="$LLVM_BIN:$CMDLINE_BIN:$PLATFORM_BIN:$PATH"
-"$SHELL"
 ```

@@ -10,3 +10,6 @@ alias gdb="gdb-posix"
 # If you use X, then xclip is what you're looking for
 alias tmux-copy="tmux show-buffer | wl-copy"
 alias tmux-paste="wl-paste"
+
+# Android Studio SDK, NDK, CLI tools variables (similar to vcvarsall)
+source asvarsall.sh
