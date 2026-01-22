@@ -19,3 +19,6 @@ core*
 *.bin
 *.elf
 *.out
+
+# Text editor artifacts
+.*.swp
